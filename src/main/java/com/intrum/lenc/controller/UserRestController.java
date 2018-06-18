@@ -22,7 +22,7 @@ public class UserRestController extends AbstractController {
      * Fetch user by userId, if user is logged on
      *
      * @param userId
-     * @return
+     * @return user json
      */
     @GetMapping("{userId}")
     public User get(@PathVariable Long userId
@@ -44,7 +44,8 @@ public class UserRestController extends AbstractController {
      * save user
      *
      * @param user
-     * @param response status should beHttpStatus.CREATED, if user created
+     * @param response status should be HttpStatus.CREATED, if user created,
+     *        header contains Location attribute with address to user
      */
     @PostMapping()
     public void post(@RequestBody User user, HttpServletResponse response) {

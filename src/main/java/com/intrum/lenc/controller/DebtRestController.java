@@ -59,7 +59,8 @@ public class DebtRestController extends AbstractController {
      * @param customerId
      * @param debt
      * @param httpServletRequest
-     * @param response
+     * @param response status should be HttpStatus.CREATED, if debt created,
+     *        header contains Location attribute with address to debt
      */
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping()

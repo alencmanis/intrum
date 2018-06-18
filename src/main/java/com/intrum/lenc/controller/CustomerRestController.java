@@ -27,7 +27,7 @@ public class CustomerRestController extends AbstractController {
      * Fetch user by customerId
      *
      * @param customerId
-     * @return
+     * @return customer json
      */
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("{customerId}")
@@ -49,7 +49,8 @@ public class CustomerRestController extends AbstractController {
     /**
      * @param userId   userId who creates customer, user property from customer not used
      * @param customer customer json
-     * @param response status should be HttpStatus.CREATED, if customer created
+     * @param response status should be HttpStatus.CREATED, if customer created,
+     *        header contains Location attribute with address to customer
      */
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping()
