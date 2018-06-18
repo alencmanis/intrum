@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -67,7 +66,7 @@ public class DebtRestControllerTest extends ControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(HttpServletResponse.SC_CREATED))
+                .andExpect(status().is(HttpStatus.CREATED.value()))
                 .andExpect(header().string("location", containsString("/users/" + user.getId() + "/customers/" + customer.getId() + "/debts")));
     }
 
@@ -89,7 +88,7 @@ public class DebtRestControllerTest extends ControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(HttpServletResponse.SC_UNAUTHORIZED));
+                .andExpect(status().is(HttpStatus.UNAUTHORIZED.value()));
     }
 
     @Test

@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletResponse;
-
 @RestController
 public class LoginRestControler {
     @Autowired
@@ -26,11 +24,10 @@ public class LoginRestControler {
      * Make authentication for given user
      *
      * @param user
-     * @param response
      * @return
      */
     @PostMapping("/auth")
-    public String login(@RequestBody User user, HttpServletResponse response) {
+    public String login(@RequestBody User user) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 user.getName(), user.getPassword());
         try {

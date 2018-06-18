@@ -2,8 +2,12 @@ package com.intrum.lenc.controller;
 
 import com.intrum.lenc.dao.UserRepository;
 import com.intrum.lenc.model.Debt;
-import com.intrum.lenc.service.*;
+import com.intrum.lenc.service.DebtService;
+import com.intrum.lenc.service.ResourceNotFoundException;
+import com.intrum.lenc.service.UnautorizedException;
+import com.intrum.lenc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +35,7 @@ public class DebtRestController extends AbstractController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("{debtId}")
     public Debt get(@PathVariable Long userId, @PathVariable Long customerId, @PathVariable Long debtId
-            , HttpServletRequest httpServletRequest, HttpServletResponse response) {
+            , HttpServletRequest httpServletRequest) {
         String principal = getPrincipal(httpServletRequest);
         if (userService.isSame(principal, userId)) {
             Optional<Debt> optional = debtService.findById(customerId, debtId);
@@ -49,12 +53,13 @@ public class DebtRestController extends AbstractController {
      * Create debt for user and customer
      * throws UnautorizedException, if user id not authorized
      * throws ServiceException, if request is wrong
+     * status should be HttpStatus.CREATED, if debt created
      *
      * @param userId
      * @param customerId
      * @param debt
      * @param httpServletRequest
-     * @param response status should be HttpServletResponse.SC_CREATED, if debt created
+     * @param response
      */
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping()
@@ -63,7 +68,7 @@ public class DebtRestController extends AbstractController {
         String principal = getPrincipal(httpServletRequest);
         if (userService.isSame(principal, userId)) {
             debtService.createDebt(userId, customerId, debt);
-            response.setStatus(HttpServletResponse.SC_CREATED);
+            response.setStatus(HttpStatus.CREATED.value());
             response.setHeader("Location", "/users/" + userId + "/customers/" + customerId + "/debts/" + debt.getId());
         } else {
             throw new UnautorizedException();

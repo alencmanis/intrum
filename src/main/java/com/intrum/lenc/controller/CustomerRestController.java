@@ -32,7 +32,7 @@ public class CustomerRestController extends AbstractController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("{customerId}")
     public Customer get(@PathVariable Long userId, @PathVariable Long customerId
-            , HttpServletRequest httpServletRequest, HttpServletResponse response) {
+            , HttpServletRequest httpServletRequest) {
         String principal = getPrincipal(httpServletRequest);
         if (userService.isSame(principal, userId)) {
             Optional<Customer> customerOptional = customerService.findById(customerId);

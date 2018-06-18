@@ -1,12 +1,9 @@
 package com.intrum.lenc.controller;
 
 import com.intrum.lenc.model.User;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-
-import javax.servlet.http.HttpServletResponse;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -73,7 +72,7 @@ public class CustomerRestControllerTest extends ControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(HttpServletResponse.SC_CREATED))
+                .andExpect(status().is(HttpStatus.CREATED.value()))
                 .andExpect(header().string("location", containsString("/users/" + user.getId() + "/customers/")));
         ;
 
